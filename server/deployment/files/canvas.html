@@ -1,0 +1,99 @@
+<!DOCTYPE html>    
+<head>
+    <meta charset="utf-8">
+    <title>Make a hole</title>
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            border: 0;
+            overflow: hidden;
+            display: block;
+			cursor: url(gun.png),auto;
+        }		
+    </style>
+</head>
+ 
+<body>
+
+    <canvas id="canvas" style = "position: absolute; left: 0px; top: 0px;" >
+    </canvas>
+    <script type="text/javascript">
+
+      document.addEventListener("DOMContentLoaded", init, false);
+
+      function init()
+      {
+        var canvas = document.getElementById("canvas");
+        canvas.addEventListener("mousedown", getPosition, false);
+      }
+
+      function getPosition(event)
+      {
+		var myObj = {x:new Number(), y:new Number()};
+        //var x = new Number();
+        //var y = new Number();
+        var canvas = document.getElementById("canvas");
+
+        if (event.x != undefined && event.y != undefined)
+        {
+          myObj.x = event.x;
+          myObj.y = event.y;
+        }
+        else // Firefox method to get the position
+        {
+          myObj.x = event.clientX + document.body.scrollLeft +
+              document.documentElement.scrollLeft;
+          myObj.y = event.clientY + document.body.scrollTop +
+              document.documentElement.scrollTop;
+        }
+
+        myObj.x -= canvas.offsetLeft;
+        myObj.y -= canvas.offsetTop;
+
+        //alert("x: " + x + "  y: " + y);
+//document.getElementById("t1").value = x;
+//document.getElementById("t2").value = y;
+		base_image = new Image();
+			base_image.src = 'hole.png';
+			
+			base_image.onload = function(){
+
+			context.drawImage(base_image, myObj.x, myObj.y);
+		  }
+      }
+
+        (function() {
+            var htmlCanvas = document.getElementById('canvas'),
+            context = htmlCanvas.getContext('2d');
+            initialize();
+ 
+            function initialize() {
+                window.addEventListener('resize', resizeCanvas, false);
+                resizeCanvas();
+            }
+                
+           function redraw() {
+                context.strokeStyle = 'black';
+                context.lineWidth = '5';
+                context.strokeRect(0, 0, window.innerWidth, window.innerHeight);
+            }
+        
+            function resizeCanvas() {
+                htmlCanvas.width = window.innerWidth;
+                htmlCanvas.height = window.innerHeight;
+                redraw();
+            }
+        
+        })();
+
+		var canvas = document.getElementById('canvas'),
+		context = canvas.getContext('2d');
+
+		getPosition();
+
+	</script>
+</body>
+ 
+</html>

@@ -1,0 +1,21 @@
+version: 0.0
+os: linux
+files:
+  - source: /files
+    destination: /var/www/html
+hooks:
+  ApplicationStop:
+    - location: scripts/applicationStop.sh
+      timeout: 500
+  BeforeInstall:
+    - location: scripts/beforeInstall.sh
+      timeout: 500
+  AfterInstall:
+    - location: scripts/afterInstall.sh
+      timeout: 500	  
+  ApplicationStart:
+    - location: scripts/applicationStart.sh
+      timeout: 500
+  ValidateService:
+    - location: scripts/validateService.sh
+      timeout: 500
